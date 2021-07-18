@@ -7,25 +7,25 @@ https://github.com/yungshenglu/USTC-TK2016#execution
 
 We describe the methods as follows:
 
-## Methods
-### Dependencies
+# Methods
+## Dependencies
 numpy
 PIL
 
-### Experiment setup
+## Experiment setup
 1. Linux 3.18-lp152.60-default x86_64 x86_64 x86_64 GNU/Linux
 2. Mono
 3. Python3
 
 
-### Steps
-#### Prepar the original PCAP dataset
+## Steps
+### Prepare the original PCAP dataset
 we get the CIC-AAGM2017 (Android Adware and General Malware Dataset) dataset, which can be found with https://www.unb.ca/cic/datasets/android-adware.html. This dataset includes five zipped files.
 Adware-PCAPs.zip  Benign-PCAPs.zip  Ransomware-PCAPs.zip  Scareware-PCAPs.zip  SMSmalware-PCAPs.zip
 Please unzip them and put them under 1_Pcap folder.
 
-#### Split the PCAP file by each flow.
-#####
+####Split the PCAP file by each flow.
+####
 Following the USTC-TK2016 guideline, we split the pcap files by running the powershell script. 
 
 PS> .\1_Pcap2Session.ps1
@@ -35,14 +35,14 @@ If succeed, there are two new created folders in folder 2_Session\
 - L7
 We choose AllLayers as our target and continue the following steps.
 
-#####
+####
 After getting the splitted flows, we run the ProcessSession script to process the splitted flow and generate PCAP files, which only have one network flow in each PCAP file.
 
 PS> .\2_ProcessSession.ps1
 
 If succeed, you will see the FilteredSession\ and TrimedSession\ folders under 3_ProcessedSession\. The files under FilteredSession are original network flows from PCAP files and trimmed PCAP files with the size of 784 bytes.
 
-#####
+####
 After geting the TrimedSession files, we use findout.py script to prepare our dataset for binary classification(Malware Detection) and multi-classification(Malware categorization)
 
 python3 findout.py
@@ -55,7 +55,7 @@ After preparing the files for binary classification and multi-classifcation. We 
 1. python3 3_Session2Png_binary.py
 2. Python3 3_Session2Png_multi.py
 
-#####
+####
 The last but not least step for preparing the ANdroNetMnist dataset is collected all converted PNG to Mnist-alike dataset.
 In our work, we give the malware detection dataset. For the malware categorization, this step is similar. The only difference is the different script to run.
 python3 4_Png2Mnist.py
